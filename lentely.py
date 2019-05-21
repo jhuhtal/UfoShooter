@@ -454,7 +454,7 @@ def metrics(x,y):
     global target_time
     angle=ship.angle
     if time.clock()-speed_timer>0.2:
-        speed=int(math.sqrt(ship.dx**2+ship.dy**2)*0.21*60*60*60/1000)
+        speed=int(math.sqrt(ship.dx**2+ship.dy**2)*0.28*60*60*60/1000)
         speed_timer=time.clock()
     speed_meter = font_terminal.render('Velocity: '+str(speed)+' km/h',1,yellow)
     Display.blit(speed_meter, (1045, 394))
@@ -912,7 +912,6 @@ def collision_manager():
                         create_explosion(ufot[j].x,ufot[j].y,-ufot[j].dx,-ufot[j].dy,explosion_detail,1)
                         ufot[i]=0
                         print_message('>UFO destroyed!',yellow)
-
     
             for j in range(0,len(projectiles)):
                 if projectiles[j]!=0 and ufot[i]!=0:
@@ -950,13 +949,7 @@ def collision_manager():
                             if 25<=random.randint(1,100)<=28:
                                 print_message('>A fine hit, Captain!"."',(comm_blue))
                             if 28<=random.randint(1,100)<=30:
-                                print_message('>Hit confirmed. The target is down."',(comm_blue))
-
-
-
-
-
-                                
+                                print_message('>Hit confirmed. The target is down."',(comm_blue))                             
         
             for j in range(0,len(debris)):
                 if debris[j]!=0 and ufot[i]!=0:
@@ -976,8 +969,6 @@ def collision_manager():
                                 create_explosion(ufot[i].x,ufot[i].y,ufot[i].dx,ufot[i].dy,explosion_detail,1)
                                 ufot[i]=0
                                 print_message('>UFO destroyed!',yellow)
-
-
 
             for j in range(0,len(projectiles)):
                 if projectiles[j]!=0 and ship.hp>0:
@@ -1109,8 +1100,6 @@ def collision_manager():
                             buildings[i]=0
                     ship.dy=0
                     ship.dx=0
-
-
 
 def evasion_manager():
     for i in range(0,len(ufot)):
@@ -1282,7 +1271,7 @@ def mission1():
         debris_manager()
         explosion_manager()
 
-        ufo_manager(5,18)
+        ufo_manager(6,12)
         #ufo_test_simulation(10,1)
         evasion_manager()
         if ship.alive==True:
