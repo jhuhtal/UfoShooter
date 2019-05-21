@@ -294,8 +294,8 @@ def create_explosion(x,y,dx,dy,q,damage):
     global explosion_particles
     for i in range(0,q):
         angle=random.uniform(0,2*math.pi)
-        exp_x=x+(-8*math.cos(angle))
-        exp_y=y+(8*math.sin(angle))
+        exp_x=x+random.randint(-8,8)
+        exp_y=y+random.randint(-8,8)
         exp_dx=random.uniform(-2*math.cos(angle),2*math.cos(angle))+0.6*dx
         exp_dy=random.uniform(-2*math.sin(angle),2*math.sin(angle))+0.6*dy
         if random.randint(1,3)==1:
@@ -380,7 +380,7 @@ class Ship:
                 damage=(3*math.sqrt(ship.dx**2+ship.dy**2))**2*ship.mass
                 self.hp+=-damage
                 self.hit_timer=time.clock()
-        self.temp+=-0.02
+        self.temp+=-0.05
         if self.temp<10:
             self.temp=10
         if self.temp>100:
@@ -405,7 +405,7 @@ class Ship:
         thrust_vector=self.unit_vector*self.thrust_power
         self.ddx=thrust_vector[0]
         self.ddy=-thrust_vector[1]
-        self.temp+=0.026
+        self.temp+=0.08
         
     def shoot(self):
         self.vector=pygame.math.Vector2(math.cos(math.radians(self.angle)),math.sin(math.radians(self.angle)))
@@ -418,7 +418,7 @@ class Ship:
         x=self.rect.center[0]
         y=self.rect.center[1]
         projectiles.append(Projectile(x,y,dx,dy))
-        self.temp+=0.2
+        self.temp+=0.4
 
     def draw(self,x,y,angle):                    
         surface=pygame.Surface((31,22))
@@ -1233,7 +1233,7 @@ def end_mission():
             print_message('>"Well done, Captain! We are not receiving any more hostile contacts. Return the ship safely to the launch pad for debriefing."',comm_blue)
             end_message=False
         if 120<ship.rect.center[0]<120+alusta_w and ship.rect.center[1]>=screen_h-100-31:
-            mission2()
+            mission1()
 
 def mission1():
     
