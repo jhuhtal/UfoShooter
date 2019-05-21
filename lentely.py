@@ -737,7 +737,7 @@ class Ufo:
                     a=random.randint(1,3)
                     if a<3:
                         self.vector=pygame.math.Vector2(ship.x-self.x,-(ship.y-self.y))
-                    else:
+                    elif buildings[4]!=0:
                         self.vector=pygame.math.Vector2(buildings[4].rect.center[0]-self.x,-(buildings[4].rect.center[1]-self.y))                        
                 elif buildings[4]!=0:
                     self.vector=pygame.math.Vector2(buildings[4].rect.center[0]-self.x,-(buildings[4].rect.center[1]-self.y))    
@@ -758,7 +758,8 @@ class Ufo:
                     if a<3:
                         self.vector=pygame.math.Vector2(ship.x-self.x,-(ship.y-self.y))
                     else:
-                        self.vector=pygame.math.Vector2(buildings[4].rect.center[0]-self.x,-(buildings[4].rect.center[1]-self.y))                        
+                        if buildings[4] != 0:
+                            self.vector=pygame.math.Vector2(buildings[4].rect.center[0]-self.x,-(buildings[4].rect.center[1]-self.y))                        
                 elif buildings[4]!=0:
                     self.vector=pygame.math.Vector2(buildings[4].rect.center[0]-self.x,-(buildings[4].rect.center[1]-self.y))    
                 self.unit_vector=pygame.math.Vector2.normalize(self.vector)
@@ -1060,7 +1061,7 @@ def collision_manager():
                     if collide:
                         if math.sqrt(ufot[j].dx**2+ufot[j].dy**2)>0.5:
                             damage=(3*math.sqrt(ufot[j].dx**2+ufot[j].dy**2))**2*ufot[j].mass
-                            building[i].hp+=-damage
+                            buildings[i].hp+=-damage
                             ufo[j].hp+=-damage
                             create_explosion((ufot[j].x+buildings[i].x)/2,(ufot[j].y+buildings[i].y)/2,0,0,int(damage/3),0)
                             if buildings[i].hp<=0:
@@ -1229,7 +1230,7 @@ end_message=True
 def end_mission():
     global end_message
     if mission==1:
-        if end_message==True:
+        if end_message==True and buildings[4]!=0:
             print_message('>"Well done, Captain! We are not receiving any more hostile contacts. Return the ship safely to the launch pad for debriefing."',comm_blue)
             end_message=False
         if 120<ship.rect.center[0]<120+alusta_w and ship.rect.center[1]>=screen_h-100-31:
